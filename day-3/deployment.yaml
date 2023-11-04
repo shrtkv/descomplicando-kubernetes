@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deployment
+  name: nginx-deployment
+spec:
+  replicas: 10
+  selector: # what pods the deployment will control
+    matchLabels:
+      app: nginx-deployment
+  strategy: 
+    type: RollingUpdate # limits the % of pods updating
+      rollingUpdate:
+        MaxSurge: 1 # +1 pod beyond the Max Unavailable:
+        MaxUnavailable: 1 # Max updating/unavailable
+  template: # pod config
+    metadata: 
+      labels: 
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx:1.16.0
+        name: nginx # name of containers
+        resources:
+          limits:
+            cpu: 0.5
+            memory: 256Mi
+          requests:
+            cpu: 0.3
+            memory: 128Mi

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"nginx-deployment"},"name":"nginx-deployment","namespace":"default"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"nginx-deployment"}},"strategy":{},"template":{"metadata":{"labels":{"app":"nginx-deployment"}},"spec":{"containers":[{"image":"nginx","name":"nginx","resources":{"limits":{"cpu":0.5,"memory":"256Mi"},"requests":{"cpu":0.3,"memory":"128Mi"}}}]}}}}
+  creationTimestamp: "2023-11-03T01:12:22Z"
+  generation: 1
+  labels:
+    app: nginx-deployment
+  name: nginx-deployment
+  namespace: default
+  resourceVersion: "251148"
+  uid: 6ade8f48-9728-47cb-a186-bf76d3d32b6b
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nginx-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 300m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: "2023-11-03T01:12:27Z"
+    lastUpdateTime: "2023-11-03T01:12:27Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-11-03T01:12:22Z"
+    lastUpdateTime: "2023-11-03T01:12:27Z"
+    message: ReplicaSet "nginx-deployment-d4ccfb897" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 3
+  replicas: 3
+  updatedReplicas: 3
