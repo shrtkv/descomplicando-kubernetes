@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx-giropops
+    app: giropops-strigus
+  name: nginx-giropops
+spec:
+  containers:
+  - image: nginx
+    name: nginx-giropops  # Corrected container name
+    ports:
+    - containerPort: 80
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m" # "0.5"
+      requests:
+        memory: "64Mi"
+        cpu: "300m"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
